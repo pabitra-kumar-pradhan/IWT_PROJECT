@@ -1,62 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome - Smart Campus</title>
+<title>Smart Campus Solution</title>
+<link rel="stylesheet">
+</head>
 <style>
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(120deg,#4facfe,#00f2fe);
-height:100vh;
+margin:0;
+font-family:Arial, sans-serif;
+background:#f5f6f8;
+}
+header{
 display:flex;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
-}
-.container{
+padding:15px 40px;
 background:white;
-padding:40px;
-border-radius:12px;
-text-align:center;
-width:350px;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
-h1{
-margin-bottom:10px;
+.hero{
+display:flex;
+align-items:center;
+padding:50px;
 }
-p{
-color:gray;
-margin-bottom:25px;
+.left{
+width:50%;
+}
+.left h1{
+font-size:45px;
+}
+.left span{
+color:#2a6fd6;
+}
+.left p{
+color:#555;
+line-height:1.6;
+margin-top:10px;
 }
 button{
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:16px;
+display:block;
+width:250px;
+padding:14px;
+margin-top:15px;
 border:none;
 border-radius:6px;
+font-size:16px;
 cursor:pointer;
 }
 .signup{
-background:#4facfe;
+background:#2a6fd6;
 color:white;
 }
 .login{
-background:#00c896;
+background:#1fa26a;
 color:white;
 }
-button:hover{
-opacity:0.9;
+
+.right{
+width:50%;
+position:relative;
+}
+
+.right img{
+width:100%;
+border-radius:10px;
+mask-image: linear-gradient(to left, rgb(255, 252, 252) 70%, transparent);
+-webkit-mask-image: linear-gradient(to left, black 70%, transparent);
 }
 </style>
-</head>
+
 <body>
-<div class="container">
-<h1>Welcome</h1>
-<p>Smart Campus System</p>
+
+<header>
+<h2>SMART CAMPUS SOLUTION</h2>
+<p>Building a smarter campus for a better tomorrow</p>
+</header>
+
+<section class="hero">
+
+<div class="left">
+
+<h1>Welcome to <span>Smart Campus Solution</span></h1>
+
+<p>
+A one-stop platform for Complaint Management and Lost & Found System
+to make campus life easier, safer and smarter.
+</p>
+
 <button class="signup" onclick="createAccount()">Create New Account</button>
 <button class="login" onclick="loginAccount()">Login to Existing Account</button>
+
 </div>
+
+<div class="right">
+<img src="welcome_img.jpg">
+</div>
+
+</section>
 <script>
 function createAccount(){
 window.location.href="signup.html";
