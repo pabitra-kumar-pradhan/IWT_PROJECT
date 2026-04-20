@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign Up - Smart Campus</title>
+<script src="formvalidation.js"></script>
 <style>
 body{
 font-family: Arial, sans-serif;
@@ -57,15 +58,14 @@ text-decoration:none;
 <body>
 <div class="container">
 <h2>Create Account</h2>
-<form>
-<input type="text" placeholder="Full Name" required>
-<input type="text" placeholder="SIC Number" required>
-<input type="email" placeholder="Email Address" required>
-<input type="password" placeholder="Create Password" required>
-<input type="password" placeholder="Confirm Password" required>
+<form onsubmit="ValidateSignup()">
+<input type="text" placeholder="Full Name" id="name"  style="background-color: cyan;" required>
+<input type="text" placeholder="SIC Number" id="sic" required>
+<input type="password" placeholder="Create Password" id="curpass" required>
+<input type="password" placeholder="Confirm Password" id="pass" required>
 <button type="submit">Sign Up</button>
 </form>
-<!--<p>Already have an account? <a href="login.html">Login</a></p>-->
+<p>Already have an account? <a href="Login.html">Login</a></p>
 </div>
 </body>
 </html>
