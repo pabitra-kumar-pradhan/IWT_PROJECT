@@ -1,86 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Login Form</title>
-<script src="formvalidation.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Login</title>
 <style>
+  /* Modern gradient background */
   body {
-    background-color:lightseagreen; 
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
   }
 
-  .login-box {
-    background-color:white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
-  .login-box h2 {
-    margin-top: 0;
+  /* Main Container */
+  .container {
+    width: 900px;
+    height: 500px;
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* Left Side */
+  .left {
+    width: 50%;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .left h2 {
+    color: #1e3c72;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
     text-align: center;
-    font-weight: bold;
-    color: #fff;
   }
 
-  input[type="text"],
-  input[type="password"] {
+  /* Inputs */
+  .input-box {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .input-box input {
     width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fefefe;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
     box-sizing: border-box;
   }
 
+  .input-box input:focus {
+    border-color: #00c896;
+    box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.2);
+  }
+
+  /* Button */
   button {
     width: 100%;
-    padding: 10px;
-    background-color: #00695c;
-    color: white;
+    padding: 14px;
+    border-radius: 12px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background: linear-gradient(135deg, #00c896, #00a87a);
+    color: white;
     font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 168, 122, 0.25);
   }
 
   button:hover {
-    background-color: #004d40;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 168, 122, 0.35);
+    background: linear-gradient(135deg, #00a87a, #008866);
   }
-  
-  a {
-    display: block;
+
+  /* Right Side */
+  .right {
+    width: 50%;
+    background: #6ec6ca;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Image Styling */
+  .right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .right img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Subtle decorative elements */
+  .container::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(0, 198, 150, 0.2), rgba(0, 198, 150, 0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 2;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 900px) {
+    .container {
+      width: 85%;
+      height: 450px;
+      border-radius: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      height: 400px;
+      flex-direction: column;
+    }
+    
+    .left {
+      width: 100%;
+      padding: 40px 20px;
+    }
+    
+    .right {
+      width: 100%;
+      height: 200px;
+    }
+    
+    .left h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    img {
+      width: 100%;
+      height: 80%;
+      object-fit: cover;
+      object-position: center;    
+    }
+  }
+
+  /* Create account link */
+  .left p.create-account {
+    margin-top: 15px;
     text-align: center;
-    margin-top: 8px;
-    color: #fff;
-    text-decoration: none;
     font-size: 14px;
   }
 
-  a:hover {
+  .left p.create-account a {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .left p.create-account a:hover {
+    color: #00c896;
     text-decoration: underline;
   }
 </style>
 </head>
-<body>
 
-<div class="login-box">
-  <h2 style="color: black;">Login</h2>
-  <form onclick="ValidityLogin()">
-    <input type="text" style="font-weight: bold;" id="loginsic" placeholder="SIC" required />
-    <input type="password" style="font-weight:600 ;" id="loginpass" placeholder="PASSWORD" required />
-    <button type="submit">Log In</button>
-  </form>
-  <span style="display: inline;">Create New Account <a href="signup.html" style="color: blue;">Sign Up</a></span>
+<body>
+<div class="container">
+  <!-- Left Side -->
+  <div class="left">
+    <h2>Login</h2>
+
+    <div class="input-box">
+      <input type="text" placeholder="SIC">
+    </div>
+
+    <div class="input-box">
+      <input type="password" placeholder="Password">
+    </div>
+
+    <button>Login</button>
+
+    <!-- Create new account link at the bottom -->
+    <p class="create-account">Don’t have an account? <a href="Signup.html">Create a new account</a></p>
+  </div>
+
+  <!-- Right Side (Your Image) -->
+  <div class="right">
+    <img src="loginpic.png" alt="Login image">
+  </div>
 </div>
 </body>
 </html>
