@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complaint System</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      background: #f4f7fb;
+      color: #222;
+    }
+    #complaintPage {
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .complaint-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+    #complaintTopbar {
+      background: #0f172a;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .topbar-title {
+      font-size: 24px;
+    }
+    .action-button {
+      width: auto;
+      padding: 10px 18px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    .action-button:hover {
+      background: #1d4ed8;
+    }
+    .secondary-button {
+      background: #6b7280;
+    }
+    .secondary-button:hover {
+      background: #4b5563;
+    }
+    .danger-button {
+      background: #dc2626;
+    }
+    .danger-button:hover {
+      background: #b91c1c;
+    }
+    .success-button {
+      background: #16a34a;
+    }
+    .success-button:hover {
+      background: #15803d;
+    }
+    #statsSection {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .stat-box {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .stat-title {
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    #complaintFormBox, #complaintListBox {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      margin-bottom: 15px;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    #complaintsContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .complaint-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 15px;
+      background: #fafafa;
+    }
+    .complaint-topic {
+      margin-bottom: 8px;
+    }
+    .complaint-meta {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #444;
+      line-height: 1.6;
+    }
+    .status-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: white;
+      margin-right: 8px;
+    }
+    .pending {
+      background: #f59e0b;
+    }
+    .resolved {
+      background: #16a34a;
+    }
+    .complaint-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .small-button {
+      width: auto;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <section id="complaintPage" class="page">
+    <div id="complaintWrapper" class="complaint-container">
+      <div id="complaintTopbar" class="topbar">
+        <h2 id="complaintHeading" class="topbar-title">Complaint System</h2>
+        <button id="backToDashboardButton" class="action-button secondary-button" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+      </div>
+      <div id="statsSection" class="stats-grid">
+        <div id="totalComplaintsBox" class="stat-box" onclick="filterComplaints('all')">
+          <h3 id="totalComplaintsTitle" class="stat-title">Total Complaints</h3>
+          <p id="totalCount" class="stat-value">0</p>
+        </div>
+        <div id="resolvedComplaintsBox" class="stat-box" onclick="filterComplaints('resolved')">
+          <h3 id="resolvedComplaintsTitle" class="stat-title">Resolved Complaints</h3>
+          <p id="resolvedCount" class="stat-value">0</p>
+        </div>
+        <div id="pendingComplaintsBox" class="stat-box" onclick="filterComplaints('pending')">
+          <h3 id="pendingComplaintsTitle" class="stat-title">Pending Complaints</h3>
+          <p id="pendingCount" class="stat-value">0</p>
+        </div>
+      </div>
+      <div id="complaintFormBox" class="form-box">
+        <h3 id="addComplaintTitle" class="section-title">Add Complaint</h3>
+        <input id="complainName" class="form-input" type="text" placeholder="Name" />
+        <input id="sicNo" class="form-input" type="text" placeholder="SIC No." />
+        <input id="topic" class="form-input" type="text" placeholder="Topic of Complaint" />
+        <textarea id="description" class="form-textarea" placeholder="Description of the Complaint"></textarea>
+        <button id="submitComplaintButton" class="action-button" onclick="addComplaint()">Submit Complaint</button>
+      </div>
+      <div id="complaintListBox" class="list-box">
+        <h3 id="complaintListTitle" class="section-title">Complaints</h3>
+        <div id="complaintsContainer" class="complaints-list"></div>
+      </div>
+    </div>
+  </section>
+  <script>
+    let complaints = [];
+    let currentFilter = "all";
+    let editIndex = -1;
+    function addComplaint() {
+      const name = document.getElementById("complainName").value.trim();
+      const sicNo = document.getElementById("sicNo").value.trim();
+      const topic = document.getElementById("topic").value.trim();
+      const description = document.getElementById("description").value.trim();
+      if (!name || !sicNo || !topic || !description) {
+        alert("Please fill all complaint fields.");
+        return;
+      }
+      if (editIndex === -1) {
+        complaints.push({
+          name,
+          sicNo,
+          topic,
+          description,
+          votes: 0,
+          status: "pending"
+        });
+      } else {
+        complaints[editIndex].name = name;
+        complaints[editIndex].sicNo = sicNo;
+        complaints[editIndex].topic = topic;
+        complaints[editIndex].description = description;
+        editIndex = -1;
+        document.getElementById("submitComplaintButton").textContent = "Submit Complaint";
+      }
+      clearForm();
+      renderComplaints();
+    }
+    function clearForm() {
+      document.getElementById("complainName").value = "";
+      document.getElementById("sicNo").value = "";
+      document.getElementById("topic").value = "";
+      document.getElementById("description").value = "";
+    }
+    function renderComplaints() {
+      const container = document.getElementById("complaintsContainer");
+      container.innerHTML = "";
+      let filtered = complaints;
+      if (currentFilter !== "all") {
+        filtered = complaints.filter(c => c.status === currentFilter);
+      }
+      filtered.forEach(c => {
+        const realIndex = complaints.indexOf(c);
+        container.innerHTML += `
+          <div id="complaintItem-${realIndex}" class="complaint-item">
+            <h4 id="complaintTopic-${realIndex}" class="complaint-topic">${c.topic}</h4>
+            <div id="complaintMeta-${realIndex}" class="complaint-meta">
+              <strong>Name:</strong> ${c.name} <br>
+              <strong>SIC No.:</strong> ${c.sicNo} <br>
+              <strong>Description:</strong> ${c.description} <br>
+              <strong>Votes:</strong> ${c.votes}
+            </div>
+            <span id="complaintStatus-${realIndex}" class="status-tag ${c.status}">${c.status.toUpperCase()}</span>
+            <div id="complaintActions-${realIndex}" class="complaint-actions">
+              <button id="editButton-${realIndex}" class="action-button secondary-button small-button" onclick="editComplaint(${realIndex})">Edit</button>
+              <button id="deleteButton-${realIndex}" class="action-button danger-button small-button" onclick="deleteComplaint(${realIndex})">Delete</button>
+              <button id="voteButton-${realIndex}" class="action-button small-button" onclick="voteComplaint(${realIndex})">Vote</button>
+              <button id="statusButton-${realIndex}" class="action-button success-button small-button" onclick="toggleStatus(${realIndex})">
+                Mark as ${c.status === 'pending' ? 'Resolved' : 'Pending'}
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      updateCounts();
+    }
+    function editComplaint(index) {
+      const c = complaints[index];
+      document.getElementById("complainName").value = c.name;
+      document.getElementById("sicNo").value = c.sicNo;
+      document.getElementById("topic").value = c.topic;
+      document.getElementById("description").value = c.description;
+      editIndex = index;
+      document.getElementById("submitComplaintButton").textContent = "Update Complaint";
+    }
+    function deleteComplaint(index) {
+      complaints.splice(index, 1);
+      if (editIndex === index) editIndex = -1;
+      renderComplaints();
+    }
+    function voteComplaint(index) {
+      complaints[index].votes += 1;
+      renderComplaints();
+    }
+    function toggleStatus(index) {
+      complaints[index].status = complaints[index].status === "pending" ? "resolved" : "pending";
+      renderComplaints();
+    }
+    function updateCounts() {
+      document.getElementById("totalCount").textContent = complaints.length;
+      document.getElementById("resolvedCount").textContent = complaints.filter(c => c.status === "resolved").length;
+      document.getElementById("pendingCount").textContent = complaints.filter(c => c.status === "pending").length;
+    }
+    function filterComplaints(type) {
+      currentFilter = type;
+      renderComplaints();
+    }
+    renderComplaints();
+  </script>
+</body>
+</html>
