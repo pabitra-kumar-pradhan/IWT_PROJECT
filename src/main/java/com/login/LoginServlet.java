@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		else
 		{
-			response.sendRedirect("Login.html");
+			response.sendRedirect("login.html");
 		}
 		
 	}
