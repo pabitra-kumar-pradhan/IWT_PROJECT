@@ -96,7 +96,7 @@
     <div id="dashboardWrapper" class="dashboard-container">
       <div id="dashboardTopbar" class="topbar">
         <h2 id="dashboardHeading" class="topbar-title">Dashboard</h2>
-        <button id="logoutButton" class="action-button danger-button" onclick="window.location.href='welcome.html'">Logout</button>
+        <button onclick="window.location.href='logout'">Logout</button>
       </div>
 
       <div id="dashboardCards" class="cards-grid">
