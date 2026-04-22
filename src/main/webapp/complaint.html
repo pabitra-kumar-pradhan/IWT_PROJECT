@@ -156,7 +156,7 @@
     <div id="complaintWrapper" class="complaint-container">
       <div id="complaintTopbar" class="topbar">
         <h2 id="complaintHeading" class="topbar-title">Complaint System</h2>
-        <button id="backToDashboardButton" class="action-button secondary-button" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+        <button id="backToDashboardButton" class="action-button secondary-button" onclick="window.location.href='<%= request.getContextPath() %>/dashboard.jsp'">Back to Dashboard</button>
       </div>
       <div id="statsSection" class="stats-grid">
         <div id="totalComplaintsBox" class="stat-box" onclick="filterComplaints('all')">
