@@ -96,7 +96,7 @@
     <div id="dashboardWrapper" class="dashboard-container">
       <div id="dashboardTopbar" class="topbar">
         <h2 id="dashboardHeading" class="topbar-title">Dashboard</h2>
-        <button onclick="window.location.href='logout'">Logout</button>
+        <button onclick="window.location.href='<%= request.getContextPath() %>/logout'">Logout</button>
       </div>
 
       <div id="dashboardCards" class="cards-grid">

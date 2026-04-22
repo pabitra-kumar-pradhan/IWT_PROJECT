@@ -20,7 +20,6 @@ public class logout extends HttpServlet {
 			session.invalidate();
 		}
 
-		// 🔥 VERY IMPORTANT
 		response.sendRedirect("welcome.html");
 	}
 }
