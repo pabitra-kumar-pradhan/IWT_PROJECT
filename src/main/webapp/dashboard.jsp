@@ -120,7 +120,7 @@ body {
 
         <!-- 🔥 FIXED -->
         <button class="action-button"
-          onclick="window.location.href='<%= request.getContextPath() %>/lostfound.jsp'">
+          onclick="window.location.href='<%= request.getContextPath() %>/lostandfound.jsp'">
           Open
         </button>
       </div>
@@ -132,7 +132,7 @@ body {
 
         <!-- 🔥 FIXED -->
         <button class="action-button"
-          onclick="window.location.href='<%= request.getContextPath() %>/complaint.jsp'">
+          onclick="window.location.href='<%= request.getContextPath() %>/complain.jsp'">
           Open
         </button>
       </div>
