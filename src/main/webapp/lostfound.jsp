@@ -10,7 +10,7 @@ if(session == null || session.getAttribute("sic") == null){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Complaint System</title>
+<title>Lost & Found</title>
 
 <style>
 body {
@@ -19,9 +19,9 @@ body {
 }
 
 .container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
 
 .topbar {
@@ -30,7 +30,7 @@ body {
   align-items:center;
   background:#111827;
   color:white;
-  padding:15px 20px;
+  padding:15px;
   border-radius:12px;
 }
 
@@ -42,7 +42,7 @@ body {
   box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-input, textarea {
+input, textarea, select {
   width:100%;
   padding:12px;
   margin-top:10px;
@@ -55,21 +55,21 @@ button {
   padding:12px;
   border:none;
   border-radius:10px;
-  background:#4f46e5;
+  background:#16a34a;
   color:white;
   cursor:pointer;
 }
 
 button:hover {
-  background:#4338ca;
+  background:#15803d;
 }
 
-.complaint-card {
+.item-card {
   margin-top:15px;
   padding:15px;
   border-radius:12px;
   background:#f9fafb;
-  border-left:5px solid #4f46e5;
+  border-left:5px solid #16a34a;
 }
 </style>
 
@@ -80,36 +80,41 @@ button:hover {
 <div class="container">
 
 <div class="topbar">
-<h2>Complaint System</h2>
+<h2>Lost & Found</h2>
 <button onclick="window.location.href='dashboard.jsp'">Back</button>
 </div>
 
 <div class="card">
-<h3>Add Complaint</h3>
+<h3>Add Item</h3>
 
-<form action="ComplaintServlet" method="post">
-<input name="topic" placeholder="Topic" required>
+<form action="LostFoundServlet" method="post">
+<input name="item_name" placeholder="Item Name" required>
 <textarea name="description" placeholder="Description" required></textarea>
+<select name="type">
+<option value="lost">Lost</option>
+<option value="found">Found</option>
+</select>
 <button type="submit">Submit</button>
 </form>
 </div>
 
 <div class="card">
-<h3>All Complaints</h3>
+<h3>Items</h3>
 
 <%
 Class.forName("com.mysql.cj.jdbc.Driver");
 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/campus_db","root","Pabitra2458#");
 Statement st = con.createStatement();
-ResultSet rs = st.executeQuery("SELECT * FROM complain ORDER BY complaint_id DESC");
+ResultSet rs = st.executeQuery("SELECT * FROM lost_found ORDER BY item_id DESC");
 
 while(rs.next()){
 %>
 
-<div class="complaint-card">
-<b><%= rs.getString("topic") %></b><br>
+<div class="item-card">
+<b><%= rs.getString("item_name") %></b><br>
 <%= rs.getString("description") %><br>
-<small>SIC: <%= rs.getString("sic") %></small>
+<small>SIC: <%= rs.getString("sic") %></small><br>
+<small>Status: <%= rs.getString("type") %></small>
 </div>
 
 <%

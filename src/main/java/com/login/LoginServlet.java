@@ -17,10 +17,9 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // 🔹 Database credentials
     private static final String URL = "jdbc:mysql://localhost:3306/campus_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "Pabitra2458#"; // change if different
+    private static final String PASSWORD = "Pabitra2458#";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,13 +28,10 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("password");
 
         try {
-            // 🔹 Load MySQL Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // 🔹 Create Connection
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            // 🔹 SQL Query
             String query = "SELECT * FROM users WHERE sic=? AND password=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, sic);
@@ -44,20 +40,16 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                // ✅ Valid user
 
                 HttpSession session = request.getSession();
                 session.setAttribute("sic", sic);
 
-                // 🔥 Always use context path
                 response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
 
             } else {
-                // ❌ Invalid user
                 response.sendRedirect(request.getContextPath() + "/login.html");
             }
 
-            // 🔹 Close resources
             rs.close();
             ps.close();
             con.close();

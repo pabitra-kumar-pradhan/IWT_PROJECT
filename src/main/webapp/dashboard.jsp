@@ -99,38 +99,31 @@ body {
 <section id="dashboardPage">
   <div class="dashboard-container">
 
-    <!-- TOP BAR -->
     <div id="dashboardTopbar">
       <h2 class="topbar-title">Dashboard</h2>
 
-      <!-- 🔥 LOGOUT FIXED -->
       <button class="action-button danger-button"
         onclick="window.location.href='<%= request.getContextPath() %>/logout'">
         Logout
       </button>
     </div>
 
-    <!-- CARDS -->
     <div id="dashboardCards">
 
-      <!-- LOST & FOUND -->
       <div class="feature-card">
         <h3 class="card-title">Lost and Found System</h3>
         <p class="card-text">Manage lost and found items.</p>
 
-        <!-- 🔥 FIXED -->
         <button class="action-button"
-          onclick="window.location.href='<%= request.getContextPath() %>/lostandfound.jsp'">
+          onclick="window.location.href='<%= request.getContextPath() %>/lostfound.jsp'">
           Open
         </button>
       </div>
 
-      <!-- COMPLAINT -->
       <div class="feature-card">
         <h3 class="card-title">Complaint System</h3>
         <p class="card-text">Create, manage, and track complaints.</p>
 
-        <!-- 🔥 FIXED -->
         <button class="action-button"
           onclick="window.location.href='<%= request.getContextPath() %>/complain.jsp'">
           Open

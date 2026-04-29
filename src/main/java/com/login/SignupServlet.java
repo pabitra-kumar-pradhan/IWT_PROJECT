@@ -1,12 +1,16 @@
 package com.login;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 @WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
 
@@ -23,13 +27,11 @@ public class SignupServlet extends HttpServlet {
 
         System.out.println("Signup Servlet HIT");
 
-
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            // 🔥 2. Check if SIC already exists
+
             String checkQuery = "SELECT * FROM users WHERE sic=?";
             PreparedStatement checkPs = con.prepareStatement(checkQuery);
             checkPs.setString(1, sic);
@@ -37,12 +39,11 @@ public class SignupServlet extends HttpServlet {
             ResultSet rs = checkPs.executeQuery();
 
             if (rs.next()) {
-                // ❌ User already exists
-                response.getWriter().println("User with this SIC already exists!");
+
+                response.sendRedirect(request.getContextPath() + "/signup.html?error=exists");
                 return;
             }
 
-            // 🔥 3. Insert new user
             String insertQuery = "INSERT INTO users (sic, full_name, password) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(insertQuery);
 
@@ -53,13 +54,11 @@ public class SignupServlet extends HttpServlet {
             int result = ps.executeUpdate();
 
             if (result > 0) {
-                // ✅ Success
-                response.sendRedirect(request.getContextPath() + "/login.html");
+                response.sendRedirect(request.getContextPath() + "/login.html?success=1");
             } else {
-                response.getWriter().println("Signup Failed");
+                response.sendRedirect(request.getContextPath() + "/signup.html?error=fail");
             }
 
-            // 🔹 Close
             rs.close();
             checkPs.close();
             ps.close();
@@ -70,6 +69,4 @@ public class SignupServlet extends HttpServlet {
             response.getWriter().println("Database Error: " + e.getMessage());
         }
     }
-
-
 }
